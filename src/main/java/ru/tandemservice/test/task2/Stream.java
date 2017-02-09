@@ -47,6 +47,12 @@ public class Stream extends RecursiveAction {
         }
     }
 
+    /**
+     * Устанавливает номер элемента.
+     * При дублировании пробует снова, пока другие потоки не установят порядок
+     * @param element IElement
+     * @param counter номер элемента
+     */
     private void setupNumberElement(IElement element, int counter) {
         if (element.getNumber() != counter) {
             try {
