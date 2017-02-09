@@ -39,13 +39,21 @@ public class Stream extends RecursiveAction {
         if (end - start <= limit) {
             for (int counter = start; counter <= (end - 1) || counter <= (elements.size() - 1); counter++) {
                 IElement element = elements.get(counter);
-                if (element.getNumber() != counter) {
-                    element.setupNumber(counter);
-                }
+                setupNumberElement(element, counter);
             }
         } else {
             int middle = (start + end) / 2;
             invokeAll(new Stream(elements, start, middle), new Stream(elements, middle + 1, end));
+        }
+    }
+
+    private void setupNumberElement(IElement element, int counter) {
+        if (element.getNumber() != counter) {
+            try {
+                element.setupNumber(counter);
+            } catch (IllegalStateException e) {
+                setupNumberElement(element, counter);
+            }
         }
     }
 

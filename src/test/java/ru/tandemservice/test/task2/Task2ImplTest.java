@@ -21,9 +21,8 @@ public class Task2ImplTest {
         int maxValue = 2_147_483_647;
         int countElements = 152_251;
         for (int count = 0; count < countElements; count++) {
-            int number = (count % 2 == 0) ? (count + countElements) : count;
-            if (number >= maxValue) continue;
-            IElement element = new ElementExampleImpl(context, number);
+            if (count >= maxValue) continue;
+            IElement element = new ElementExampleImpl(context, count + 1);
             elements.add(element);
         }
     }
