@@ -29,23 +29,16 @@ public class Task2Impl implements IElementNumberAssigner {
     }
 
     /**
-     * Распараллеливает если есть для этого ресурсы, иначе нет смысла.
+     * Метод выставляет номера {@link IElement#setupNumber(int)}
+     * для элементов коллекции {@code elements}
+     * в порядке следования элементов в коллекции.
+     *
      * @param elements элементы, которым нужно выставить номера
      */
     public void assignNumbers(final List<IElement> elements) {
-        if (Stream.getAvailableProcessors() > 1) {
-            ForkJoinPool pool = new ForkJoinPool();
-            Stream stream = new Stream(elements);
-            pool.invoke(stream);
-        } else {
-            AtomicInteger counter = new AtomicInteger(0);
-            elements.spliterator().forEachRemaining(element -> {
-                int number = counter.getAndIncrement();
-                if (element.getNumber() != number) {
-                    element.setupNumber(number);
-                }
-            });
-        }
+        ForkJoinPool pool = new ForkJoinPool();
+        Stream stream = new Stream(elements);
+        pool.invoke(stream);
     }
 
 }

@@ -20,11 +20,17 @@ public class Task2ImplTest {
     public void setUp() throws Exception {
         int maxValue = 2_147_483_647;
         int countElements = 152_251;
-        for (int count = 0; count < countElements; count++) {
-            if (count >= maxValue) continue;
-            IElement element = new ElementExampleImpl(context, count + 1);
+        for (int count = 10; count < countElements; count++) {
+            int number = (count % 2 == 0) ? (count + countElements) : count;
+            if (number >= maxValue) continue;
+            IElement element = new ElementExampleImpl(context, number);
             elements.add(element);
         }
+
+        elements.add(new ElementExampleImpl(context, 2));
+        elements.add(new ElementExampleImpl(context, 3));
+        elements.add(new ElementExampleImpl(context, 9));
+        elements.add(new ElementExampleImpl(context, 5));
     }
 
     @Test
